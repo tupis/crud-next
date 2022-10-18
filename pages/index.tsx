@@ -1,5 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import Button from "../components/Button";
+import Link from "next/link";
 
 const Home: NextPage = () => {
   return (
@@ -7,8 +9,12 @@ const Home: NextPage = () => {
       <Head>
         <title>Home</title>
       </Head>
-      <button>Fazer login</button>
-      <button>Registrar-se</button>
+      <Button>
+        <Link href="/login">Fazer login</Link>
+      </Button>
+      <Button>
+        <Link href="/register">Registrar</Link>
+      </Button>
     </>
   );
 };
