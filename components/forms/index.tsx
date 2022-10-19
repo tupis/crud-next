@@ -1,7 +1,6 @@
 import { useState } from "react";
 import UserServices from "../../services/userServices";
-import Button from "../Button";
-import Input from "../Input";
+import { Container, Button, Input } from "./style";
 
 interface Props {
   isLogin: boolean;
@@ -14,11 +13,6 @@ const FormsLoginRegister = ({ isLogin }: Props): JSX.Element => {
   const [confirmPassword, setConfirmaPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
   const { login, register } = UserServices;
-
-  const handleLogin = async (e: any) => {
-    e.preventDefault();
-    await login({ email, password });
-  };
 
   const verifyEmail = () => {
     const regexEmail =
@@ -56,17 +50,24 @@ const FormsLoginRegister = ({ isLogin }: Props): JSX.Element => {
     allVerify() && (await register({ name, email, password }));
   };
 
+  const handleLogin = async (e: any) => {
+    e.preventDefault();
+    await login({ email, password });
+  };
+
   return (
-    <form>
+    <Container>
       {isLogin ? (
         <>
           <Input
-            placeholder="Email"
+            label="Email"
+            variant="outlined"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <Input
-            placeholder="Senha"
+            label="Senha"
+            variant="outlined"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -74,33 +75,40 @@ const FormsLoginRegister = ({ isLogin }: Props): JSX.Element => {
       ) : (
         <>
           <Input
-            placeholder="Nome"
+            label="Nome"
+            variant="outlined"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
           <Input
-            placeholder="Email"
+            label="Email"
+            variant="outlined"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           {error === "email" && <p>Formato do email inválido</p>}
           <Input
-            placeholder="Senha"
+            label="Senha"
+            variant="outlined"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           <Input
-            placeholder="Confirmar Senha"
+            label="Confirmar Senha"
+            variant="outlined"
             value={confirmPassword}
             onChange={(e) => setConfirmaPassword(e.target.value)}
           />
           {error === "password" && <p>Senhas não coincidem</p>}
         </>
       )}
-      <Button onClick={isLogin ? handleLogin : handleRegister}>
+      <Button
+        variant="contained"
+        onClick={isLogin ? handleLogin : handleRegister}
+      >
         {isLogin ? "Fazer Login" : "Registrar-se"}
       </Button>
-    </form>
+    </Container>
   );
 };
 
