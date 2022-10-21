@@ -4,6 +4,7 @@ import { Input, Button } from "../style";
 import { Button as ButtonMui } from "@mui/material";
 import { setCookie } from "cookies-next";
 import UserServices from "../../../services/userServices";
+import React from "react";
 
 interface PropsForms extends Props {
   updateName: any;

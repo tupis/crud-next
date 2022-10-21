@@ -2,7 +2,8 @@ import { getCookie } from "cookies-next";
 import styled from "styled-components";
 import ChangeForms from "../components/forms/ChangeForms";
 import { Props } from "../@types";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import React from "react";
 
 const Container = styled.div`
   width: 100vw;
