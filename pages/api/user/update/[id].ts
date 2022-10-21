@@ -7,21 +7,21 @@ export default async function handler(req: Req, res: Res) {
 
   if (req.method === "PUT") {
     try {
-      const updateName = await prisma.user.update({
+      const updatedUser = await prisma.user.update({
         where: {
           id: String(id),
         },
 
         data: {
-          password: req.body.password,
+          ...req.body,
         },
       });
 
-      return res.status(200).json({ message: "senha atualizada com sucesso" });
+      return res.status(200).json(updatedUser);
     } catch (error) {
       return res
         .status(401)
-        .json({ message: "error ao tentar atualizar a senha" });
+        .json({ message: "error ao tentar atualizar o nome" });
     }
   }
 }
