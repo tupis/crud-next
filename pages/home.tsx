@@ -2,9 +2,8 @@ import nookies from "nookies";
 import styled from "styled-components";
 import ChangeForms from "../components/forms/ChangeForms";
 import { Props } from "../@types";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import React from "react";
-import UserServices from "../services/client/userServices";
 import { useRouter } from "next/router";
 import jwt from "jsonwebtoken";
 
@@ -36,12 +35,12 @@ export async function getServerSideProps(ctx: any) {
 
 const Home = (props: Props) => {
   const [user] = useState(props.user);
-  const name = user.name.split(" ")[0];
+  const name: string = user.name.split(" ")[0];
 
   const router = useRouter();
 
-  function logOut() {
-    nookies.destroy(null, "user");
+  function logOut(): void {
+    nookies.destroy(null, "token");
     router.push("/");
   }
 
