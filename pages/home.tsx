@@ -4,7 +4,7 @@ import ChangeForms from "../components/forms/ChangeForms";
 import { Props } from "../@types";
 import { useEffect, useState } from "react";
 import React from "react";
-import UserServices from "../services/userServices";
+import UserServices from "../services/client/userServices";
 import { useRouter } from "next/router";
 import jwt from "jsonwebtoken";
 

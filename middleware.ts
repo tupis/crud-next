@@ -1,6 +1,6 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { verify } from "./servicesApi/jwt";
+import { verify } from "./services/api/jwt";
 
 const middleware = async (req: NextRequest) => {
   let response = NextResponse.next();

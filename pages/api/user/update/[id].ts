@@ -1,6 +1,6 @@
 import type { NextApiRequest as Req, NextApiResponse as Res } from "next";
 import { PrismaClient } from "@prisma/client";
-import { sign } from "../../../../servicesApi/jwt";
+import { sign } from "../../../../services/api/jwt";
 
 export default async function handler(req: Req, res: Res) {
   const prisma = new PrismaClient();

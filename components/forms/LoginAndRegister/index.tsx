@@ -1,7 +1,7 @@
 import nookies from "nookies";
 import { Alert } from "@mui/material";
 import { useState } from "react";
-import UserServices from "../../../services/userServices";
+import UserServices from "../../../services/client/userServices";
 import { Container, Button, Input, Title, Wrapper } from "../style";
 import { useRouter } from "next/router";
 

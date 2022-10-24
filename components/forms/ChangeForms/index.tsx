@@ -4,7 +4,7 @@ import { Props } from "../../../@types";
 import { Input, Button } from "../style";
 import { Button as ButtonMui } from "@mui/material";
 import { useRouter } from "next/router";
-import UserServices from "../../../services/userServices";
+import UserServices from "../../../services/client/userServices";
 import React from "react";
 
 const ChangeForms = (props: Props) => {
