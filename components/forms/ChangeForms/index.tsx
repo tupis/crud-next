@@ -1,28 +1,37 @@
-import { useState } from "react";
+import nookies from "nookies";
+import { useEffect, useState } from "react";
 import { Props } from "../../../@types";
 import { Input, Button } from "../style";
 import { Button as ButtonMui } from "@mui/material";
-import { setCookie } from "cookies-next";
+import { useRouter } from "next/router";
 import UserServices from "../../../services/userServices";
 import React from "react";
 
-interface PropsForms extends Props {
-  updateName: any;
-}
-
-const ChangeForms = (props: PropsForms) => {
-  const { user, updateName } = props;
+const ChangeForms = (props: Props) => {
+  const { user } = props;
 
   const [name, setName] = useState<string>(user.name);
-  const [password, setPassword] = useState<string>(user.password);
   const [email, setEmail] = useState<string>(user.email);
+
+  const router = useRouter();
 
   async function handleUpdate() {
     const { updateUser } = UserServices;
-    await updateUser({ name, password, email }, user.id).then(({ data }) => {
-      setCookie("user", data);
-      updateName(data.name);
+    await updateUser({ name, email }, user.id).then(({ data }) => {
+      nookies.set(null, "token", data);
     });
+    router.reload();
+  }
+
+  async function handleDelete() {
+    const confirm = window.confirm("Tem certeza que deseja deletar sua conta?");
+    if (confirm) {
+      const { deleteUser } = UserServices;
+      await deleteUser(user.id).then(({ data }) => {
+        nookies.destroy(null, "token");
+        router.push("/");
+      });
+    }
   }
 
   return (
@@ -40,18 +49,17 @@ const ChangeForms = (props: PropsForms) => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <Input
-          label="Senha"
-          variant="outlined"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
         <Button variant="contained" onClick={handleUpdate}>
           Atualizar usuário
         </Button>
       </form>
 
-      <ButtonMui variant="outlined" color="error">
+      <ButtonMui
+        style={{ marginTop: 15 }}
+        variant="outlined"
+        color="error"
+        onClick={handleDelete}
+      >
         Deletar Usuário
       </ButtonMui>
     </>

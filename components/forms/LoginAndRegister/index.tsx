@@ -1,18 +1,22 @@
+import nookies from "nookies";
 import { Alert } from "@mui/material";
 import { useState } from "react";
 import UserServices from "../../../services/userServices";
 import { Container, Button, Input, Title, Wrapper } from "../style";
+import { useRouter } from "next/router";
 
 interface Props {
   isLogin: boolean;
 }
 
 const FormsLoginRegister = ({ isLogin }: Props): JSX.Element => {
+  const router = useRouter();
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmaPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
+
   const { login, register } = UserServices;
 
   const verifyEmail = () => {
@@ -48,12 +52,18 @@ const FormsLoginRegister = ({ isLogin }: Props): JSX.Element => {
 
   const handleRegister = async (e: any) => {
     e.preventDefault();
-    allVerify() && (await register({ name, email, password }));
+    allVerify() &&
+      (await register({ name, email, password }).then(({ data }) => {
+        nookies.set(null, "token", data);
+      }));
   };
 
   const handleLogin = async (e: any) => {
     e.preventDefault();
-    await login({ email, password });
+    await login({ email, password }).then(({ data }) => {
+      nookies.set(null, "token", data);
+    });
+    router.push("/home");
   };
 
   return (
