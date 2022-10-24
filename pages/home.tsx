@@ -2,9 +2,8 @@ import nookies from "nookies";
 import styled from "styled-components";
 import ChangeForms from "../components/forms/ChangeForms";
 import { Props } from "../@types";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import React from "react";
-import UserServices from "../services/client/userServices";
 import { useRouter } from "next/router";
 import jwt from "jsonwebtoken";
 
