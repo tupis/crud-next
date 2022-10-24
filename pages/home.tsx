@@ -1,9 +1,12 @@
-import { getCookie } from "cookies-next";
+import nookies from "nookies";
 import styled from "styled-components";
 import ChangeForms from "../components/forms/ChangeForms";
 import { Props } from "../@types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
+import UserServices from "../services/userServices";
+import { useRouter } from "next/router";
+import jwt from "jsonwebtoken";
 
 const Container = styled.div`
   width: 100vw;
@@ -19,9 +22,10 @@ const Container = styled.div`
   }
 `;
 
-export async function getServerSideProps({ req, res }: any) {
-  const getUser: any = getCookie("user", { req, res });
-  const user = JSON.parse(getUser);
+export async function getServerSideProps(ctx: any) {
+  const getCookies: any = nookies.get(ctx);
+  const { token } = getCookies;
+  const user = jwt.decode(token);
 
   return {
     props: {
@@ -31,13 +35,25 @@ export async function getServerSideProps({ req, res }: any) {
 }
 
 const Home = (props: Props) => {
-  const [user, setUser] = useState(props.user);
-  const [name, setName] = useState(user.name.split(" ")[0]);
+  const [user] = useState(props.user);
+  const name = user.name.split(" ")[0];
+
+  const router = useRouter();
+
+  function logOut() {
+    nookies.destroy(null, "user");
+    router.push("/");
+  }
 
   return (
     <Container>
-      <h1>{`Seja muito bem-vindo, ${name}`}!</h1>
-      <ChangeForms user={user} updateName={setName} />
+      <h1 style={{ color: "white" }}>
+        {`Seja muito bem-vindo(a), ${name}`}!{" "}
+        <span onClick={logOut} style={{ color: "red", cursor: "pointer" }}>
+          Fazer Logout!
+        </span>
+      </h1>
+      <ChangeForms user={user} />
     </Container>
   );
 };
