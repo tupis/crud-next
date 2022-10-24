@@ -1,5 +1,6 @@
 import type { NextApiRequest as Req, NextApiResponse as Res } from "next";
 import { PrismaClient } from "@prisma/client";
+import { sign } from "../../../../servicesApi/jwt";
 
 export default async function handler(req: Req, res: Res) {
   const prisma = new PrismaClient();
@@ -17,11 +18,17 @@ export default async function handler(req: Req, res: Res) {
         },
       });
 
-      return res.status(200).json(updatedUser);
+      Object.defineProperty(updatedUser, "password", {
+        enumerable: false,
+      });
+
+      const token = await sign(updatedUser, String(process.env.JWT_SECRET));
+
+      return res.status(200).json(token);
     } catch (error) {
       return res
         .status(401)
-        .json({ message: "error ao tentar atualizar o nome" });
+        .json({ message: "error ao tentar atualizar o usuário" });
     }
   }
 }
