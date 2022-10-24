@@ -35,12 +35,12 @@ export async function getServerSideProps(ctx: any) {
 
 const Home = (props: Props) => {
   const [user] = useState(props.user);
-  const name = user.name.split(" ")[0];
+  const name: string = user.name.split(" ")[0];
 
   const router = useRouter();
 
-  function logOut() {
-    nookies.destroy(null, "user");
+  function logOut(): void {
+    nookies.destroy(null, "token");
     router.push("/");
   }
 
