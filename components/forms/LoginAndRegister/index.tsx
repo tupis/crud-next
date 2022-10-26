@@ -1,8 +1,8 @@
 import nookies from "nookies";
-import { Alert } from "@mui/material";
 import { useState } from "react";
 import UserServices from "../../../services/client/userServices";
-import { Container, Button, Input, Title, Wrapper } from "../style";
+import { Container, Button, Title, Wrapper } from "../style";
+import Input from "../../input";
 import { useRouter } from "next/router";
 
 interface Props {
@@ -14,7 +14,7 @@ const FormsLoginRegister = ({ isLogin }: Props): JSX.Element => {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [confirmPassword, setConfirmaPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
 
   const { login, register } = UserServices;
@@ -56,6 +56,7 @@ const FormsLoginRegister = ({ isLogin }: Props): JSX.Element => {
       (await register({ name, email, password }).then(({ data }) => {
         nookies.set(null, "token", data);
       }));
+    router.push("/home");
   };
 
   const handleLogin = async (e: any) => {
@@ -73,56 +74,41 @@ const FormsLoginRegister = ({ isLogin }: Props): JSX.Element => {
         {isLogin ? (
           <>
             <Input
-              label="Email"
-              variant="outlined"
+              placeholder="Email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e: any) => setEmail(e.target.value)}
             />
             <Input
-              label="Senha"
-              variant="outlined"
+              placeholder="Senha"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e: any) => setPassword(e.target.value)}
             />
           </>
         ) : (
           <>
             <Input
-              label="Nome"
-              variant="outlined"
+              placeholder="Nome"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e: any) => setName(e.target.value)}
             />
             <Input
-              label="Email"
-              variant="outlined"
+              placeholder="Email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e: any) => setEmail(e.target.value)}
             />
-            {error === "email" && (
-              <Alert severity="error">Formato do email inválido</Alert>
-            )}
             <Input
-              label="Senha"
-              variant="outlined"
+              placeholder="Senha"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e: any) => setPassword(e.target.value)}
             />
             <Input
-              label="Confirmar Senha"
-              variant="outlined"
+              placeholder="Confirmar senha"
               value={confirmPassword}
-              onChange={(e) => setConfirmaPassword(e.target.value)}
+              onChange={(e: any) => setConfirmPassword(e.target.value)}
             />
-            {error === "password" && (
-              <Alert severity="error">Senhas não coincidem</Alert>
-            )}
           </>
         )}
-        <Button
-          variant="contained"
-          onClick={isLogin ? handleLogin : handleRegister}
-        >
+        <Button onClick={isLogin ? handleLogin : handleRegister}>
           {isLogin ? "Fazer Login" : "Registrar-se"}
         </Button>
       </Container>
