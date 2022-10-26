@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { TextField, Button as ButtonVector } from "@mui/material";
 
 export const Wrapper = styled.div`
   width: 100vw;
@@ -24,32 +23,14 @@ export const Title = styled.h1`
   margin-bottom: 50px;
 `;
 
-export const Input = styled(TextField)`
-  margin: 20px 0;
-  width: 100%;
-  border: 0px solid transparent;
-  outline: none;
-  color: white;
-
-  input {
-    color: white;
-  }
-
-  label {
-    color: white;
-  }
-
-  fieldset {
-    border: none;
-    border-bottom: 1px solid white;
-  }
-`;
-
-export const Button = styled(ButtonVector)`
+export const Button = styled.button`
   margin-top: 30px;
   width: 100%;
   background-color: #a03954;
   padding: 10px;
+  color: white;
+  border: none;
+  border-radius: 10px;
 
   :hover {
     background-color: #7e3045;
