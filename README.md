@@ -9,7 +9,7 @@ Essas instruções permitirão que você obtenha uma cópia do projeto em opera�
 ### 📋 Pré-requisitos
 
 Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
-[Git](https://git-scm.com), [Node.js](https://nodejs.org/en/).
+[Git](https://git-scm.com), [Node.js](https://nodejs.org/en/), [PostgreSQL](https://www.postgresql.org/).
 Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/)
 
 ### 🔧 Instalação e Execução
@@ -34,7 +34,15 @@ $ cd crud-next
 $ yarn
 ```
 
-4. Execute a aplicação em modo de desenvolvimento
+4. Crie o arquivo que armazenará suas variáveis de ambiente
+
+```
+$ touch .env
+```
+
+5. Adicione variáveis e preenche-as corretamente como no exemplo em `.env.example`
+
+6. Execute a aplicação em modo de desenvolvimento
 
 ```
 $ yarn dev
@@ -66,6 +74,8 @@ Principais tecnologia usada neste projeto
 - [Styled Components](https://styled-components.com/docs) - Biblioteca de estilização de CSS no TypeScript
 - [JWT - (JSON Web Token)](https://jwt.io/) - Padrão de encodificação para autentificação
 - [Bcrypt](https://www.npmjs.com/package/bcrypt) - Biblioteca de criptografia
+- [PostegreSQL](https://www.postgresql.org/docs/) - Banco de dados
+- [Prisma](https://www.prisma.io/docs/getting-started) - ORM
 
 ## 📄 Licença
 

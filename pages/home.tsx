@@ -6,6 +6,7 @@ import { useState } from "react";
 import React from "react";
 import { useRouter } from "next/router";
 import jwt from "jsonwebtoken";
+import { Title } from "../components/forms/style";
 
 const Container = styled.div`
   width: 100vw;
@@ -46,12 +47,12 @@ const Home = (props: Props) => {
 
   return (
     <Container>
-      <h1 style={{ color: "white" }}>
+      <Title>
         {`Seja muito bem-vindo(a), ${name}`}!{" "}
         <span onClick={logOut} style={{ color: "red", cursor: "pointer" }}>
           Fazer Logout!
         </span>
-      </h1>
+      </Title>
       <ChangeForms user={user} />
     </Container>
   );
